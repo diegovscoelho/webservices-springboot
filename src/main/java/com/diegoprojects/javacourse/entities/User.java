@@ -20,8 +20,8 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "client")
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     public User() {

@@ -1,9 +1,7 @@
 package com.diegoprojects.javacourse.services;
 
 import com.diegoprojects.javacourse.entities.Order;
-import com.diegoprojects.javacourse.entities.User;
 import com.diegoprojects.javacourse.repositories.OrderRepository;
-import com.diegoprojects.javacourse.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
