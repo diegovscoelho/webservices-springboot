@@ -1,17 +1,48 @@
 package com.diegoprojects.javacourse.entities;
 
-public class OrderItem {
+import com.diegoprojects.javacourse.entities.pk.OrderItemPK;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-    private Integer quantity;
-    private Double price;
+import java.io.Serializable;
+import java.util.Objects;
 
-    public OrderItem() {
+@Entity
+@Table(name = "tb_order_item")
+public class OrderItem implements Serializable {
 
-    }
+   @EmbeddedId
+   private OrderItemPK id;
 
-    public OrderItem(Integer quantity, Double price) {
+   private Integer quantity;
+   private Double price;
+
+   public OrderItem() {
+
+   }
+
+    public OrderItem(Order order, Product product ,Integer quantity, Double price) {
+        id.setOrder(order);
+        id.setProduct(product);
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Order getOrder() {
+       return id.getOrder();
+    }
+
+    public void setOrder(Order order) {
+        id.setOrder(order);
+    }
+
+    public Product setProduct() {
+       return id.getProduct();
+    }
+
+    public void setProduct(Product product) {
+       id.setProduct(product);
     }
 
     public Integer getQuantity() {
@@ -30,15 +61,15 @@ public class OrderItem {
         this.price = price;
     }
 
-    public double subTotal() {
-        return quantity * price;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id);
     }
 
     @Override
-    public String toString() {
-        return "OrderItem{" +
-                "quantity=" + quantity +
-                ", price=" + price +
-                '}';
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
