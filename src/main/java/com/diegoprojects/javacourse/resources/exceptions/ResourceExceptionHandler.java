@@ -1,5 +1,6 @@
 package com.diegoprojects.javacourse.resources.exceptions;
 
+import com.diegoprojects.javacourse.services.exceptions.DatabaseException;
 import com.diegoprojects.javacourse.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
@@ -20,4 +21,12 @@ public class ResourceExceptionHandler extends RuntimeException {
       StandartError err = new StandartError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
       return ResponseEntity.status(status).body(err);
     }
+
+  @ExceptionHandler(DatabaseException.class)
+  public ResponseEntity<StandartError> resourceNotFound(DatabaseException e, HttpServletRequest request) {
+    String error = "Database error";
+    HttpStatus status = HttpStatus.BAD_REQUEST;
+    StandartError err = new StandartError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+    return ResponseEntity.status(status).body(err);
+  }
 }
